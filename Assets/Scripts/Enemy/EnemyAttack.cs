@@ -14,7 +14,7 @@ public class EnemyAttack : MonoBehaviour
     bool playerInRange;
     float timer;
 
-
+    //Contiene funciones muy ineficientes, a las que Awake "Ayuda"
     void Awake ()
     {
         player = GameObject.FindGameObjectWithTag ("Player");
