@@ -4,6 +4,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public int startingHealth = 100;
     public int currentHealth;
+    //Cuando un enemigo muere, la velocidad a la que desaparece el cadaver
     public float sinkSpeed = 2.5f;
     public int scoreValue = 10;
     public AudioClip deathClip;
@@ -14,6 +15,7 @@ public class EnemyHealth : MonoBehaviour
     ParticleSystem hitParticles;
     CapsuleCollider capsuleCollider;
     bool isDead;
+    //Para determinar cuando se empieza a limpiar, tras la animación de la muerte
     bool isSinking;
 
 
@@ -32,6 +34,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if(isSinking)
         {
+            //-Vector3.up mueve hacia abajo
             transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
         }
     }
@@ -45,8 +48,10 @@ public class EnemyHealth : MonoBehaviour
         enemyAudio.Play ();
 
         currentHealth -= amount;
-            
+        
+        //Mueve el sistema de partículas al punto de impacto
         hitParticles.transform.position = hitPoint;
+        //Muestra el sistema de partículas
         hitParticles.Play();
 
         if(currentHealth <= 0)
@@ -59,7 +64,7 @@ public class EnemyHealth : MonoBehaviour
     void Death ()
     {
         isDead = true;
-
+        //Convierte el colisionador en trigger, para que no moleste
         capsuleCollider.isTrigger = true;
 
         anim.SetTrigger ("Dead");
@@ -71,7 +76,9 @@ public class EnemyHealth : MonoBehaviour
 
     public void StartSinking ()
     {
+        //"Quitamos" el NavMesh para que no siga moviéndose
         GetComponent <NavMeshAgent> ().enabled = false;
+        //If isKinematic is enabled, Forces, collisions or joints will not affect the rigidbody anymore
         GetComponent <Rigidbody> ().isKinematic = true;
         isSinking = true;
         //ScoreManager.score += scoreValue;
