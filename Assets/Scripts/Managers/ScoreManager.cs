@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class ScoreManager : MonoBehaviour
-{
+{   
+    //Al hacer la variable estática no hace falta acceder a través del componente
     public static int score;
 
 

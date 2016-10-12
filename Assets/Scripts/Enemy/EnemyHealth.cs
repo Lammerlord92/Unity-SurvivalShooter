@@ -81,7 +81,8 @@ public class EnemyHealth : MonoBehaviour
         //If isKinematic is enabled, Forces, collisions or joints will not affect the rigidbody anymore
         GetComponent <Rigidbody> ().isKinematic = true;
         isSinking = true;
-        //ScoreManager.score += scoreValue;
+        //Como es static, no se tiene por que tener ningún atributo con GetComponent
+        ScoreManager.score += scoreValue;
         Destroy (gameObject, 2f);
     }
 }
